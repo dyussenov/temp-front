@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать ссылку</title>
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</head>
+<body>
+  <h2>Добавить новую ссылку</h2>
+  <form
+    hx-post="http://localhost:8000/links"
+    hx-params="link"
+    hx-trigger="submit"
+    hx-on::after-request="this.reset(); document.getElementById('link-display').dispatchEvent(new Event('load'))"
+  >
+    <input type="url" name="link" required placeholder="https://example.com">
+    <button type="submit">Добавить</button>
+  </form>
+</body>
+</html>

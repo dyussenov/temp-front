@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Ссылка для учеников</title>
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</head>
+<body>
+  <h1>Актуальная ссылка</h1>
+
+ <div id="link-display" hx-get="http://localhost:8000/links/latest" hx-trigger="load" hx-target="this" hx-swap="innerHTML">
+  <script type="text/javascript">
+    document.addEventListener("htmx:afterOnLoad", function(event) {
+      if (event.detail.xhr.responseURL.includes("/links/latest")) {
+        const data = JSON.parse(event.detail.xhr.responseText);
+        const div = document.getElementById("link-display");
+        div.innerHTML = data.link
+          ? `<a href="${data.link}" target="_blank">${data.link}</a>`
+          : "Ссылка не установлена.";
+      }
+    });
+  </script>
+  Загрузка...
+</div>
+
+</body>
+</html>
